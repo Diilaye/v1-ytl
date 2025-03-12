@@ -5,6 +5,7 @@ const path = require('path');
 const app = express();
 
 app.use(express.static(path.join(__dirname, 'web')))
+app.use(express.json());
 
 app.get('*', (req, res) => {
     // Obtenir le chemin (path)
@@ -22,8 +23,8 @@ app.get('/', (req, res) => {
 
 });
 
-app.get('/api/v1/sendContact', (req, res) => { 
-    let {  message, email } = req.query;
+app.post('/api/v1/sendContact', (req, res) => { 
+    let {  message, email } = req.body;
     // Récupération des données
     const transporter = require('nodemailer').createTransport({
         service: 'IMAP',
